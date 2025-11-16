@@ -53,7 +53,7 @@ will outout metadata on the engines and for each engine, print a line for each l
 
 ## Benchmark Results
 
-### Macbook Air M2 with 24GM RAM
+### MacBook Air M2 with 24GM RAM
 
 	 >: ./factorize-all.sh large-ints-3.txt
 	## Wolfram ##
