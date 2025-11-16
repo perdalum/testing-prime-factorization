@@ -6,9 +6,9 @@ A fun little benchmark project for comparing the speed of prime factorization ac
 
 This project is a fun project to test and compare the performance of prime factorization for large integers using:
 
-- **Wolfram Language** (WolframScript)
-- **PARI/GP** - Computer algebra system
-- **bigmathfast** - Java library for large numbers
+- [Wolfram Language](https://wolfram.com) (WolframScript)
+- [PARI/GP](https://pari.math.u-bordeaux.fr) - Computer algebra system
+- [bigmathfast](https://github.com/thomasegense/bigmathfast) - Java library for large numbers
 
 bigmathfast is a Java library that implements factorization of large integers. For numbers less than 22 digits the PollardRho algorithm is used. For numbers larger than 22 digits, the algorithm will use ECM/Siqs. This Java library is implemented by Thomas Egense and can be found at GitHub: [bigmathfast](https://github.com/thomasegense/bigmathfast). 
 
