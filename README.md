@@ -49,11 +49,11 @@ Example
 
     factorize-all.sh large-ints-3.txt 
 
-will outout metadata on the engines and for each engine, print a line for each line in the input file with number of digits and time taken to factorize measured in milliseconds.
+will output metadata on the engines and for each engine, print a line for each line in the input file with the number of digits and time taken to factorize measured in milliseconds.
 
 ## Benchmark Results
 
-### MacBook Air M2 with 24GM RAM
+### MacBook Air M2 with 24GB RAM
 
 	 >: ./factorize-all.sh large-ints-3.txt
 	## Wolfram ##
