@@ -78,3 +78,11 @@ will outout metadata on the engines and for each engine, print a line for each l
 	40      202
 	50      860
 	###########################
+
+## Author
+
+Per Møldrup-Dalum
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
