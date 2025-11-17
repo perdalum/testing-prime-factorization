@@ -2,8 +2,8 @@
 \\ author: Per Møldrup-Dalum
 \\ date:   2026-11-16
 
-\\default(parisize, "128M");
-\\default(parisizemax, "512M");
+default(parisize, "128M");
+default(parisizemax, "10GB");
 
 \\ read filename from environment, fall back to default
 filename = getenv("LARGE_INTS");
