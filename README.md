@@ -55,29 +55,39 @@ will output metadata on the engines and for each engine, print a line for each l
 
 ### MacBook Air M2 with 24GB RAM
 
-	 >: ./factorize-all.sh large-ints-3.txt
-	## Wolfram ##
-	WolframScript 1.13.0 for Mac OS X ARM (64-bit)
-	30   19.435 
-	40   76.913 
-	50   1576.35
-	###########################
-	## PARI/GP ##
-	          GP/PARI CALCULATOR Version 2.17.2 (released)
-	 arm64 running darwin (aarch64/GMP-6.3.0 kernel) 64-bit version
-	compiled: Feb 28 2025, Apple clang version 17.0.0 (clang-1700.3.19.1)
-	                    threading engine: pthread
-	         (readline v8.3 disabled, extended help enabled)
-	30      2
-	40      16
-	50      150
-	###########################
-	## bigmathfast ##
-	bigmathfast-1.0-jar-with-dependencies.jar
-	30      63
-	40      202
-	50      860
-	###########################
+    >: ./factorize-all.sh large-ints-5.txt
+    ###########################
+    ## Wolfram ##
+    WolframScript 1.13.0 for Mac OS X ARM (64-bit)
+    30   19.692 
+    40   80.359 
+    50   1583.59
+    60   17965.5
+    70   377270.
+    
+>: ./factorize-all.sh large-ints-3.txt
+    ###########################
+    ## PARI/GP ##
+    30	4
+    40	18
+    50	149
+    60	1628
+    70	11339
+    80	270966
+    90	3604437
+    
+    ###########################
+    ## bigmathfast ##
+    bigmathfast-1.0-jar-with-dependencies.jar
+    30	64
+    40	181
+    50	965
+    60	3654
+    70	18411
+    80	283088
+    90	3503897
+    
+
 
 ## Author
 
