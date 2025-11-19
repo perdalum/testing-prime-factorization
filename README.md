@@ -46,8 +46,7 @@ All these integers are products of two large prime numbers and therefore worst-c
     >: wolframscript -version
     WolframScript 1.13.0 for Mac OS X ARM (64-bit)
 
-    >: wolframscript -f factorize.wls large-ints-5.txt;echo "80   NA\n90   NA" > wls.out
-    cat wls.out
+    >: wolframscript -f factorize.wls large-ints-5.txt;echo "80   NA\n90   NA" > wls.out; cat wls.out
     30   19.692 
     40   80.359 
     50   1583.59
@@ -64,8 +63,7 @@ All these integers are products of two large prime numbers and therefore worst-c
                                threading engine: pthread
                     (readline v8.3 disabled, extended help enabled)
  
-    $ LARGE_INTS=large-ints-7.txt gp -q factorize.gp 2>/dev/null > gp.out
-    cat gp.out
+    $ LARGE_INTS=large-ints-7.txt gp -q factorize.gp 2>/dev/null > gp.out; cat gp.out
     30	4
     40	18
     50	149
@@ -76,8 +74,7 @@ All these integers are products of two large prime numbers and therefore worst-c
 
     #bigmathfast-1.0-jar-with-dependencies.jar
 
-    ./factorize-bigmathfast.py large-ints-7.txt > bmf.out
-    cat bmf.out
+    ./factorize-bigmathfast.py large-ints-7.txt > bmf.out; cat bmf.out
     30	64
     40	181
     50	965
