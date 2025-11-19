@@ -1,28 +1,24 @@
 # Testing Prime Factorization
 
-A fun little benchmark project for comparing the speed of prime factorization across different tools.
+A fun little benchmark project for comparing the speed of integer factorization across some tools that I know.
 
-## Purpose
-
-This project is a fun project to test and compare the performance of prime factorization for large integers using:
-
-- [Wolfram Language](https://wolfram.com) (WolframScript)
+- [Wolfram Language](https://wolfram.com) (WolframScript/Mathematica)
 - [PARI/GP](https://pari.math.u-bordeaux.fr) - Computer algebra system
 - [bigmathfast](https://github.com/thomasegense/bigmathfast) - Java library for large numbers
 
-bigmathfast is a Java library that implements factorization of large integers. For numbers less than 22 digits the PollardRho algorithm is used. For numbers larger than 22 digits, the algorithm will use ECM/Siqs. This Java library is implemented by Thomas Egense and can be found at GitHub: [bigmathfast](https://github.com/thomasegense/bigmathfast). 
+`bigmathfast` is a Java library that implements factorization of large integers. For numbers less than 22 digits, the PollardRho algorithm is used. For numbers larger than 22 digits, the algorithm will use ECM/Siqs. This Java library is implemented by Thomas Egense and can be found at GitHub: [bigmathfast](https://github.com/thomasegense/bigmathfast). 
 
 ## Prerequisites
 
 To run all benchmarks, the following must be installed:
 
-- [WolframScript](https://www.wolfram.com/wolframscript/">WolframScript) - Part of Wolfram Mathematica or Wolfram Engine
+- [WolframScript](https://www.wolfram.com/wolframscript/) - Part of Wolfram Mathematica or Wolfram Engine
 - [PARI/GP](https://pari.math.u-bordeaux.fr) - Computer algebra system
 - Java - To run the bigmathfast JAR file
-- bigmathfast as described above
+- `bigmathfast` can be downloaded from Thomas' GitHub project.
 - Python 3 - For the bigmathfast wrapper script
 
-You also need some large integers to test with. I've provided the following which are the same integers as used in the bigmathfast tests.
+You also need some large integers to test with. I've provided the following which are the same integers as used in the `bigmathfast` tests.
 
     30, 147275865199119510385557165977
     40, 1468859383233401953850079471177142403357
@@ -32,6 +28,7 @@ You also need some large integers to test with. I've provided the following whic
     80, 93035149443954345347665179408833277091909532522394543659489519897196854705698057
     90, 235619162309580984868967318620943039846576548536713751373304739395055583551615448989006587
 
+All these integers are products of two large prime numbers and therefore worst-case scenarios for factorization.
 
 ## Project Structure
 
@@ -41,33 +38,34 @@ You also need some large integers to test with. I've provided the following whic
 - `factorize-bigmathfast.py` - Python wrapper for Java bigmathfast
 - `bigmathfast-1.0-jar-with-dependencies.jar` - Java library
 - `large-ints-*.txt` - Test data with large integers
-- `run.sh` - Example of single Java execution
-
-## Usage
-
-Example
-
-    factorize-all.sh large-ints-3.txt 
-
-will output metadata on the engines and for each engine, print a line for each line in the input file with the number of digits and time taken to factorize measured in milliseconds.
 
 ## Benchmark Results
 
 ### MacBook Air M2 with 24GB RAM
 
-    >: ./factorize-all.sh large-ints-5.txt
-    ###########################
-    ## Wolfram ##
+    >: wolframscript -version
     WolframScript 1.13.0 for Mac OS X ARM (64-bit)
+
+    >: wolframscript -f factorize.wls large-ints-5.txt;echo "80   NA\n90   NA" > wls.out
+    cat wls.out
     30   19.692 
     40   80.359 
     50   1583.59
     60   17965.5
     70   377270.
+    80    NA
+    90    NA
     
->: ./factorize-all.sh large-ints-3.txt
-    ###########################
-    ## PARI/GP ##
+
+     >: gp --version
+                      GP/PARI CALCULATOR Version 2.17.2 (released)
+             arm64 running darwin (aarch64/GMP-6.3.0 kernel) 64-bit version
+         compiled: Feb 28 2025, Apple clang version 17.0.0 (clang-1700.3.19.1)
+                               threading engine: pthread
+                    (readline v8.3 disabled, extended help enabled)
+ 
+    $ LARGE_INTS=large-ints-7.txt gp -q factorize.gp 2>/dev/null > gp.out
+    cat gp.out
     30	4
     40	18
     50	149
@@ -75,10 +73,11 @@ will output metadata on the engines and for each engine, print a line for each l
     70	11339
     80	270966
     90	3604437
-    
-    ###########################
-    ## bigmathfast ##
-    bigmathfast-1.0-jar-with-dependencies.jar
+
+    #bigmathfast-1.0-jar-with-dependencies.jar
+
+    ./factorize-bigmathfast.py large-ints-7.txt > bmf.out
+    cat bmf.out
     30	64
     40	181
     50	965
@@ -86,8 +85,26 @@ will output metadata on the engines and for each engine, print a line for each l
     70	18411
     80	283088
     90	3503897
-    
+ 
+With the output in three data files, it can be compared against e.g., PARI/GP as the baseline.
 
+     >: paste gp.out bmf.out wls.out|cut -f1,2,4,6| awk 'BEGIN {OFS="|"} NR<6 {print $1,$2/$2,$3/$2,$4/$2} NR>5 {print $1, $2/$2,$3/$2,"NA"}'|sed 's/^/|/;s/$/|/'|pbcopy
+
+
+| no. of digits | PARI/GP | bigmathfast |  Wolfram |
+|--------------:|--------:|------------:|---------:|
+|            30 |       1 |          16 |    4.923 |
+|            40 |       1 |     10.0556 |  4.46439 |
+|            50 |       1 |     6.47651 |  10.6281 |
+|            60 |       1 |     2.24447 |  11.0353 |
+|            70 |       1 |     1.62369 |  33.2719 |
+|            80 |       1 |     1.04474 |       NA |
+|            90 |       1 |    0.972107 |       NA |
+
+
+PARI/GP is the baseline, and the numbers indicate how faster PARI/GP is. E.g., for a 30-digit integer, PARI/GP is 16 times faster than `bigmathfast` and 4.923 times faster than Wolfram. The relative slowness of `bigmathfast` is probably due to start-up time for the Java VM.
+
+One could also begin to ponder on caches and other shenanigans used by the different engines. I do know that for huge integers, I would choose PARI/GP or `bigmathfast`. For really huge integers, it seems like `bigmathfast` is faster than PARI/GP – quite fitting for its name :-)
 
 ## Author
 
